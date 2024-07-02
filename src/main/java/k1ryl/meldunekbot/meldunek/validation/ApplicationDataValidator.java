@@ -25,36 +25,49 @@ public class ApplicationDataValidator {
 
     private final PeselValidator peselValidator;
 
-    public Map<String, FieldStatus> validate(UserDataDto userData, @Nullable Set<String> fieldsToValidate) {
+    public Map<String, FieldStatus> validate(UserDataDto userData) {
+        Set<String> allFields = Set.of("name", "surname", "dateOfBirth", "countryOfBirth", "placeOfBirth");
+        return validate(userData, allFields);
+    }
+
+    public Map<String, FieldStatus> validate(UserDataDto userData, Set<String> fieldsToValidate) {
         Map<String, FieldStatus> invalidFields = new HashMap<>();
         log.debug("Validating user data {}", userData);
 
-        if ((fieldsToValidate == null || fieldsToValidate.contains("name")) && StringUtils.isBlank(userData.name())) {
-            invalidFields.put("name", MISSING);
-        } else if (StringUtils.isNotBlank(userData.name()) && !isTextPolishCompatible(userData.name())) {
-            invalidFields.put("name", FieldStatus.NOT_POLISH_COMPATIBLE);
+        if (fieldsToValidate.contains("name")) {
+            if (StringUtils.isBlank(userData.name())) {
+                invalidFields.put("name", MISSING);
+            } else if (!isTextPolishCompatible(userData.name())) {
+                invalidFields.put("name", FieldStatus.NOT_POLISH_COMPATIBLE);
+            }
         }
 
-        if ((fieldsToValidate == null || fieldsToValidate.contains("surname")) && StringUtils.isBlank(userData.surname())) {
-            invalidFields.put("surname", MISSING);
-        } else if (StringUtils.isNotBlank(userData.surname()) && !isTextPolishCompatible(userData.surname())) {
-            invalidFields.put("surname", FieldStatus.NOT_POLISH_COMPATIBLE);
+        if (fieldsToValidate.contains("surname")) {
+            if (StringUtils.isBlank(userData.surname())) {
+                invalidFields.put("surname", MISSING);
+            } else if (!isTextPolishCompatible(userData.surname())) {
+                invalidFields.put("surname", FieldStatus.NOT_POLISH_COMPATIBLE);
+            }
         }
 
-        if ((fieldsToValidate == null || fieldsToValidate.contains("dateOfBirth")) && userData.dateOfBirth() == null) {
+        if (fieldsToValidate.contains("dateOfBirth") && userData.dateOfBirth() == null) {
             invalidFields.put("dateOfBirth", MISSING);
         }
 
-        if ((fieldsToValidate == null || fieldsToValidate.contains("countryOfBirth")) && StringUtils.isBlank(userData.countryOfBirth())) {
-            invalidFields.put("countryOfBirth", MISSING);
-        } else if (StringUtils.isNotBlank(userData.countryOfBirth()) && !isTextPolishCompatible(userData.countryOfBirth())) {
-            invalidFields.put("countryOfBirth", FieldStatus.NOT_POLISH_COMPATIBLE);
+        if (fieldsToValidate.contains("countryOfBirth")) {
+            if (StringUtils.isBlank(userData.countryOfBirth())) {
+                invalidFields.put("countryOfBirth", MISSING);
+            } else if (!isTextPolishCompatible(userData.countryOfBirth())) {
+                invalidFields.put("countryOfBirth", FieldStatus.NOT_POLISH_COMPATIBLE);
+            }
         }
 
-        if ((fieldsToValidate == null || fieldsToValidate.contains("placeOfBirth")) && StringUtils.isBlank(userData.placeOfBirth())) {
-            invalidFields.put("placeOfBirth", MISSING);
-        } else if (StringUtils.isNotBlank(userData.placeOfBirth()) && !isTextPolishCompatible(userData.placeOfBirth())) {
-            invalidFields.put("placeOfBirth", FieldStatus.NOT_POLISH_COMPATIBLE);
+        if (fieldsToValidate.contains("placeOfBirth")) {
+            if (StringUtils.isBlank(userData.placeOfBirth())) {
+                invalidFields.put("placeOfBirth", MISSING);
+            } else if (!isTextPolishCompatible(userData.placeOfBirth())) {
+                invalidFields.put("placeOfBirth", FieldStatus.NOT_POLISH_COMPATIBLE);
+            }
         }
 
         return invalidFields;

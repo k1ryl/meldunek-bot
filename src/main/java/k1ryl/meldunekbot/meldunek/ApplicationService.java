@@ -1,7 +1,6 @@
 package k1ryl.meldunekbot.meldunek;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Nullable;
 import jakarta.transaction.Transactional;
@@ -10,12 +9,13 @@ import k1ryl.meldunekbot.meldunek.validation.model.FieldStatus;
 import k1ryl.meldunekbot.openai.OpenAIService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
+import static java.util.Collections.emptySet;
 
 @Service
 @Slf4j
@@ -43,15 +43,6 @@ public class ApplicationService {
         } else {
             throw new IllegalStateException("No application found for TG user %s" + tgUserId);
         }
-    }
-
-    public Map<String, FieldStatus> extractAndSavePersonalData(String messageText, Application application) throws JsonProcessingException {
-        Set<String> fieldsToExtract = null;
-        if (!application.getStateDetails().isEmpty()) {
-            fieldsToExtract = application.getStateDetails().keySet();
-        }
-
-        return extractPersonalFieldsAndSaveValid(messageText, fieldsToExtract, application);
     }
 
     public Map<String, FieldStatus> extractAndSavePesel(String messageText, Application application) throws JsonProcessingException {
@@ -89,9 +80,13 @@ public class ApplicationService {
         return extractContactFieldsAndSaveValid(messageText, fieldsToExtract, application);
     }
 
-    private Map<String, FieldStatus> extractPersonalFieldsAndSaveValid(String messageText, @Nullable Set<String> fieldsToExtract, Application application) throws JsonProcessingException {
-        var extractedUserData = (fieldsToExtract == null) ? openAIService.extractPersonalData(messageText) : openAIService.extractPersonalData(messageText, fieldsToExtract);
-        Map<String, FieldStatus> invalidFields = dataValidator.validate(extractedUserData, fieldsToExtract);
+    public Map<String, FieldStatus> extractAndSavePersonalData(String messageText, Application application) {
+        Set<String> fieldsToExtract = application.getStateDetails().isEmpty() ? emptySet() : application.getStateDetails().keySet();
+        var extractedUserData = fieldsToExtract.isEmpty() ? openAIService.extractPersonalData(messageText) :
+                openAIService.extractPersonalData(messageText, fieldsToExtract);
+
+        Map<String, FieldStatus> invalidFields = fieldsToExtract.isEmpty() ? dataValidator.validate(extractedUserData) :
+                dataValidator.validate(extractedUserData, fieldsToExtract);
         if (!invalidFields.isEmpty()) {
             log.debug("Personal data is incomplete. Invalid fields: {}", invalidFields);
             application.setStateDetails(invalidFields);
@@ -101,19 +96,19 @@ public class ApplicationService {
         }
 
         // Only save valid fields
-        if (!invalidFields.containsKey("name") && (fieldsToExtract == null || fieldsToExtract.contains("name"))) {
+        if (!invalidFields.containsKey("name") && (fieldsToExtract.contains("name"))) {
             application.setName(extractedUserData.name());
         }
-        if (!invalidFields.containsKey("surname") && (fieldsToExtract == null || fieldsToExtract.contains("surname"))) {
+        if (!invalidFields.containsKey("surname") && (fieldsToExtract.contains("surname"))) {
             application.setSurname(extractedUserData.surname());
         }
-        if (!invalidFields.containsKey("dateOfBirth") && (fieldsToExtract == null || fieldsToExtract.contains("dateOfBirth"))) {
+        if (!invalidFields.containsKey("dateOfBirth") && (fieldsToExtract.contains("dateOfBirth"))) {
             application.setDateOfBirth(extractedUserData.dateOfBirth());
         }
-        if (!invalidFields.containsKey("countryOfBirth") && (fieldsToExtract == null || fieldsToExtract.contains("countryOfBirth"))) {
+        if (!invalidFields.containsKey("countryOfBirth") && (fieldsToExtract.contains("countryOfBirth"))) {
             application.setCountryOfBirth(extractedUserData.countryOfBirth());
         }
-        if (!invalidFields.containsKey("placeOfBirth") && (fieldsToExtract == null || fieldsToExtract.contains("placeOfBirth"))) {
+        if (!invalidFields.containsKey("placeOfBirth") && (fieldsToExtract.contains("placeOfBirth"))) {
             application.setPlaceOfBirth(extractedUserData.placeOfBirth());
         }
 
