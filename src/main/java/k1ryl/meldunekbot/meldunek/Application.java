@@ -2,6 +2,7 @@ package k1ryl.meldunekbot.meldunek;
 
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
+import k1ryl.meldunekbot.meldunek.validation.model.FieldStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -69,7 +72,7 @@ public class Application {
 
     @Type(JsonType.class)
     @Column(columnDefinition = "json")
-    private String stateDetails;
+    private Map<String, FieldStatus> stateDetails = new HashMap<>();
 
     @Column(updatable = false, nullable = false)
     @CreatedDate

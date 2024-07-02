@@ -47,9 +47,8 @@ public class ApplicationService {
 
     public Map<String, FieldStatus> extractAndSavePersonalData(String messageText, Application application) throws JsonProcessingException {
         Set<String> fieldsToExtract = null;
-        if (StringUtils.isNotBlank(application.getStateDetails())) {
-            fieldsToExtract = objectMapper.readValue(application.getStateDetails(), new TypeReference<Map<String, FieldStatus>>() {
-            }).keySet();
+        if (!application.getStateDetails().isEmpty()) {
+            fieldsToExtract = application.getStateDetails().keySet();
         }
 
         return extractPersonalFieldsAndSaveValid(messageText, fieldsToExtract, application);
@@ -61,7 +60,7 @@ public class ApplicationService {
         Map<String, FieldStatus> invalidFields = dataValidator.validate(peselDto);
         if (!invalidFields.isEmpty()) {
             log.debug("PESEL {} is invalid", peselDto.pesel());
-            application.setStateDetails(objectMapper.writeValueAsString(invalidFields));
+            application.setStateDetails(invalidFields);
         } else {
             application.setPesel(peselDto.pesel());
             application.setState(ApplicationState.CONTACT_DATA);
@@ -73,9 +72,8 @@ public class ApplicationService {
 
     public Map<String, FieldStatus> extractAndSaveContactData(String messageText, Application application) throws JsonProcessingException {
         Set<String> fieldsToExtract = null;
-        if (StringUtils.isNotBlank(application.getStateDetails())) {
-            fieldsToExtract = objectMapper.readValue(application.getStateDetails(), new TypeReference<Map<String, FieldStatus>>() {
-            }).keySet();
+        if (!application.getStateDetails().isEmpty()) {
+            fieldsToExtract = application.getStateDetails().keySet();
         }
 
         return extractContactFieldsAndSaveValid(messageText, fieldsToExtract, application);
@@ -84,9 +82,8 @@ public class ApplicationService {
 
     public Map<String, FieldStatus> extractAndSaveApartmentDetailsData(String messageText, Application application) throws JsonProcessingException {
         Set<String> fieldsToExtract = null;
-        if (StringUtils.isNotBlank(application.getStateDetails())) {
-            fieldsToExtract = objectMapper.readValue(application.getStateDetails(), new TypeReference<Map<String, FieldStatus>>() {
-            }).keySet();
+        if (!application.getStateDetails().isEmpty()) {
+            fieldsToExtract = application.getStateDetails().keySet();
         }
 
         return extractContactFieldsAndSaveValid(messageText, fieldsToExtract, application);
@@ -97,7 +94,7 @@ public class ApplicationService {
         Map<String, FieldStatus> invalidFields = dataValidator.validate(extractedUserData, fieldsToExtract);
         if (!invalidFields.isEmpty()) {
             log.debug("Personal data is incomplete. Invalid fields: {}", invalidFields);
-            application.setStateDetails(objectMapper.writeValueAsString(invalidFields));
+            application.setStateDetails(invalidFields);
         } else {
             application.setState(ApplicationState.PESEL);
             application.setStateDetails(null);
@@ -129,7 +126,7 @@ public class ApplicationService {
         Map<String, FieldStatus> invalidFields = dataValidator.validate(extractedContactData, fieldsToExtract);
         if (!invalidFields.isEmpty()) {
             log.debug("Contact data is incomplete. Invalid fields: {}", invalidFields);
-            application.setStateDetails(objectMapper.writeValueAsString(invalidFields));
+            application.setStateDetails(invalidFields);
         } else {
             application.setState(ApplicationState.APARTMENT_DATA);
             application.setStateDetails(null);
