@@ -1,0 +1,110 @@
+nazwisko
+imię (imiona)
+pierwsza cyfra PESEL
+druga cyfra PESEL
+trzecia cyfra PESEL
+czwarta cyfra PESEL
+piąta cyfra PESEL
+szósta cyfra PESEL
+siódma cyfra PESEL
+ósma cyfra PESEL
+dziewiąta cyfra PESEL
+dziesiąta cyfra PESEL
+jedenasta cyfra PESEL
+kraj urodzenia
+data urodzenia dzień pierwsza cyfra
+data urodzenia dzień druga cyfra
+data urodzenia miesiąc pierwsza cyfra
+data urodzenia miesiąc druga cyfra
+data urodzenia rok pierwsza cyfra
+data urodzenia rok druga cyfra
+data urodzenia rok trzecia cyfra
+data urodzenia rok czwarta cyfra
+miejsce urodzenia
+kraj miejsca zamieszkania
+pierwsza cyfra numeru telefonu komórkowego
+druga cyfra numeru telefonu komórkowego
+trzecia cyfra numeru telefonu komórkowego
+czwarta cyfra numeru telefonu komórkowego
+piąta cyfra numeru telefonu komórkowego
+szósta cyfra numeru telefonu komórkowego
+siódma cyfra numeru telefonu komórkowego
+ósma cyfra numeru telefonu komórkowego
+dziewiąta cyfra numeru telefonu komórkowego
+dziesiąta cyfra numeru telefonu komórkowego
+jedenasta cyfra numeru telefonu komórkowego
+dwunasta cyfra numeru telefonu komórkowego
+trzynasta cyfra numeru telefonu komórkowego
+czternasta cyfra numeru telefonu komórkowego
+piętnasta cyfra numeru telefonu komórkowego
+szesnasta cyfra numeru telefonu komórkowego
+siedemansta cyfra numeru telefonu komórkowego
+osiemnasta cyfra numeru telefonu komórkowego
+dziewiętnasta cyfra numeru telefonu komórkowego
+dwudziesta cyfra numeru telefonu komórkowego
+adres poczty elektronicznej
+wyrażam zgodę na przekazanie do rejestru danych kontaktowych imienia, nazwiska, numeru PESEL oraz
+wyrażam zgodę na przekazanie do rejestru danych kontaktowych numeru telefonu komórkowego
+wyrażam zgodę na przekazanie do rejestru danych kontaktowych adresu poczty elektronicznej
+ulica
+numer domu pierwsza cyfra
+numer domu druga cyfra
+numer domu trzecia cyfra
+numer domu czwarta cyfra
+numer domu piąta cyfra
+numer domu szósta cyfra
+numer domu siódma cyfra
+numer domu ósma cyfra
+numer domu dziewiąta cyfra
+numer lokalu pierwsza cyfra
+numer lokalu druga cyfra
+numer lokalu trzecia cyfra
+numer lokalu czwarta cyfra
+numer lokalu piąta cyfra
+numer lokalu szósta cyfra
+numer lokalu siódma cyfra
+kod pocztowy pierwsza cyfra
+kod pocztowy druga cyfra
+kod pocztowy trzecia cyfra
+kod pocztowy czwarta cyfra
+kod pocztowy piąta cyfra
+miejscowość dzielnica
+gmina
+województwo
+data początkowa dzień pierwsza cyfra
+data początkowa dzień druga cyfra
+data początkowa miesiąc pierwsza cyfra
+data początkowa miesiąć druga cyfra
+data początkowa rok pierwsza cyfra
+data początkowa rok druga cyfra
+data początkowa rok trzecia cyfra
+data początkowa rok czwarta cyfra
+data końcowa dzień pierwsza cyfra
+data końcowa dzień druga cyfra
+data końcowa miesiąc pierwsza cyfra
+data końcowa miesiąc druga cyfra
+data końcowa rok pierwsza cyfra
+data końcowa rok druga cyfra
+data końcowa rok trzecia cyfra
+data końcowa rok czwarta cyfra
+z
+n
+imię pełnomocnika
+oświadczenie właściciela miejscowość
+oświadczenie właściciela data dzień pierwsza cyfra
+oświadczenie właściciela data dzień druga cyfra
+oświadczenie właściciela data miesiąc pierwsza cyfra
+oświadczenie właściciela data miesiąc druga cyfra
+oświadczenie właściciela data rok pierwsza cyfra
+oświadczenie właściciela data rok druga cyfra
+oświadczenie właściciela data rok trzecia cyfra
+oświadczenie właściciela data rok czwarta cyfra
+oświadczenie osoby zgłaszającej miejscowość
+oświadczenie data dzień pierwsza cyfra
+oświadczenie data dzień druga cyfra
+oświadczenie data miesiąc pierwsza cyfra
+oświadczenie data miesiac druga cyfra
+oświadczenie data rok pierwsza cyfra
+oświadczenie data rok druga cyfra
+oświadczenie data rok trzecia cyfra
+oświadczenie data rok czwarta cyfra

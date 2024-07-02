@@ -1,0 +1,17 @@
+openai:
+  api-key: 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
+
+spring:
+  # Database
+  datasource:
+    url: jdbc:mysql://localhost:3306/meldunekgen?createDatabaseIfNotExist=true
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    k1ryl.meldunekbot: DEBUG
