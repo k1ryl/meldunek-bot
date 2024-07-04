@@ -1,6 +1,5 @@
 package k1ryl.meldunekbot.meldunek.validation;
 
-import jakarta.annotation.Nullable;
 import k1ryl.meldunekbot.meldunek.dto.ContactDataDto;
 import k1ryl.meldunekbot.meldunek.dto.PeselDto;
 import k1ryl.meldunekbot.meldunek.dto.UserDataDto;
@@ -24,11 +23,6 @@ import static k1ryl.meldunekbot.meldunek.validation.model.FieldStatus.MISSING;
 public class ApplicationDataValidator {
 
     private final PeselValidator peselValidator;
-
-    public Map<String, FieldStatus> validate(UserDataDto userData) {
-        Set<String> allFields = Set.of("name", "surname", "dateOfBirth", "countryOfBirth", "placeOfBirth");
-        return validate(userData, allFields);
-    }
 
     public Map<String, FieldStatus> validate(UserDataDto userData, Set<String> fieldsToValidate) {
         Map<String, FieldStatus> invalidFields = new HashMap<>();
@@ -84,16 +78,20 @@ public class ApplicationDataValidator {
         return invalidFields;
     }
 
-    public Map<String, FieldStatus> validate(ContactDataDto contactDataDto, @Nullable Set<String> fieldsToValidate) {
+    public Map<String, FieldStatus> validate(ContactDataDto contactDataDto, Set<String> fieldsToValidate) {
         Map<String, FieldStatus> invalidFields = new HashMap<>();
         log.debug("Validating contact data {}", contactDataDto);
 
-        if ((fieldsToValidate == null || fieldsToValidate.contains("phone")) && StringUtils.isBlank(contactDataDto.phone())) {
-            invalidFields.put("phone", MISSING);
+        if (fieldsToValidate.contains("phone")) {
+            if (StringUtils.isBlank(contactDataDto.phone())) {
+                invalidFields.put("phone", MISSING);
+            }
         }
 
-        if ((fieldsToValidate == null || fieldsToValidate.contains("email")) && StringUtils.isBlank(contactDataDto.email())) {
-            invalidFields.put("email", MISSING);
+        if (fieldsToValidate.contains("email")) {
+            if (StringUtils.isBlank(contactDataDto.email())) {
+                invalidFields.put("email", MISSING);
+            }
         }
 
         return invalidFields;

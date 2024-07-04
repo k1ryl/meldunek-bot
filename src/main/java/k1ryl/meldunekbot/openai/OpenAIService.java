@@ -19,6 +19,7 @@ import static k1ryl.meldunekbot.openai.OpenAIPrompts.*;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+//todo retry 3 times. after it exception and ask user to try again
 public class OpenAIService {
 
     private final OpenAIClient client;
@@ -40,29 +41,8 @@ public class OpenAIService {
         return null;
     }
 
-
-    public UserDataDto extractPersonalData(String rawUserData) {
-        return extractPersonalData(rawUserData, Set.of("name", "surname", "dateOfBirth", "countryOfBirth", "placeOfBirth"));
-    }
-
-    public UserDataDto extractPersonalData(String rawUserData, Set<String> fieldsToExtract) {
-        try {
-            //todo retry 3 time. after it exception and ask user to try again
-            Optional<OpenAIResponse> openAIResponse = client.requestJsonCompletion(extractPersonalDataPrompt(rawUserData, fieldsToExtract));
-            if (openAIResponse.isPresent()) {
-                String jsonUserData = openAIResponse.get().choices().get(0).message().content();
-                return objectMapper.readValue(jsonUserData, UserDataDto.class);
-            }
-        } catch (Exception e) {
-            log.error("Failed to extract user data from OpenAI", e);
-            return null;
-        }
-        return null;
-    }
-
     public PeselDto extractPesel(String rawPesel) {
         try {
-            //todo retry 3 time. after it exception and ask user to try again
             Optional<OpenAIResponse> openAIResponse = client.requestJsonCompletion(extractPeselPrompt(rawPesel));
             if (openAIResponse.isPresent()) {
                 String jsonPeselData = openAIResponse.get().choices().get(0).message().content();
@@ -70,25 +50,6 @@ public class OpenAIService {
             }
         } catch (Exception e) {
             log.error("Failed to extract PESEL from OpenAI", e);
-            return null;
-        }
-        return null;
-    }
-
-    public ContactDataDto extractContactData(String rawContactData) {
-        return extractContactData(rawContactData, Set.of("phone", "email"));
-    }
-
-    public ContactDataDto extractContactData(String rawContactData, Set<String> fieldsToExtract) {
-        try {
-            //todo retry 3 time. after it exception and ask user to try again
-            Optional<OpenAIResponse> openAIResponse = client.requestJsonCompletion(extractContactDataPrompt(rawContactData, fieldsToExtract));
-            if (openAIResponse.isPresent()) {
-                String jsonUserData = openAIResponse.get().choices().get(0).message().content();
-                return objectMapper.readValue(jsonUserData, ContactDataDto.class);
-            }
-        } catch (Exception e) {
-            log.error("Failed to extract contact data from OpenAI", e);
             return null;
         }
         return null;
