@@ -9,9 +9,48 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Vite + React + TS</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body style="height: 100vh; overflow: hidden">
-<div id="root"></div>
-<script type="module" src="/src/main.tsx"></script>
+<div id="root" x-data="wizardForm()">
+    <div x-show="step === 1">
+        <h2>Step 1: Enter your name</h2>
+        <input type="text" x-model="formData.name" placeholder="Name"/>
+        <button @click="nextStep()">Next</button>
+    </div>
+    <div x-show="step === 2">
+        <h2>Step 2: Enter your age</h2>
+        <input type="number" x-model="formData.age" placeholder="Age"/>
+        <button @click="prevStep()">Previous</button>
+        <button @click="nextStep()">Next</button>
+    </div>
+    <div x-show="step === 3">
+        <h2>Step 3: Confirm your data</h2>
+        <p>Name: <span x-text="formData.name"></span></p>
+        <p>Age: <span x-text="formData.age"></span></p>
+        <button @click="prevStep()">Previous</button>
+        <button @click="submitForm()">Submit</button>
+    </div>
+</div>
+<script>
+    function wizardForm() {
+        return {
+            step: 1,
+            formData: {
+                name: '',
+                age: ''
+            },
+            nextStep() {
+                this.step++;
+            },
+            prevStep() {
+                this.step--;
+            },
+            submitForm() {
+                alert(`Name: ${this.formData.name}, Age: ${this.formData.age}`);
+            }
+        }
+    }
+</script>
 </body>
 </html>
