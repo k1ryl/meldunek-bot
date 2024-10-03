@@ -27,7 +27,7 @@ public class ApplicationService {
             ApplicationState.PERSONAL_DATA, Set.of("name", "surname", "dateOfBirth", "countryOfBirth", "placeOfBirth"),
             ApplicationState.CONTACT_DATA, Set.of("phone", "email"),
             ApplicationState.CONTACT_DATA, Set.of("phone", "email"),
-            ApplicationState.APARTMENT_DATA, Set.of("apartmentNumber", "buildingNumber", "street", "city", "postalCode")
+            ApplicationState.APARTMENT_DATA, Set.of("street", "buildingNumber", "apartmentNumber", "city", "postalCode")
     );
 
     @Transactional

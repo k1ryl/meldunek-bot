@@ -52,8 +52,8 @@ public class ApplicationGenerator {
 
             // 3. residence details
             fields.setField("ulica", request.street().toUpperCase());
-            setHouseNumber(fields, request.houseNumber());
-            setFlatNumber(fields, request.flatNumber());
+            setHouseNumber(fields, request.buildingNumber());
+            setFlatNumber(fields, request.apartmentNumber());
             setPostalCode(fields, request.postalCode()); //postal code comes in format XX-XXX
             fields.setField("miejscowość dzielnica", request.cityOrCityDistrict().toUpperCase());
             fields.setField("gmina", request.gmina().toUpperCase());

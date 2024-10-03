@@ -31,6 +31,15 @@ public class OpenAIPrompts {
             JSON:%s
             If some data is non-extractable or not present, leave it as null""";
 
+    static final String EXTRACT_APARTMENT_DATA = """
+            User provided message with apartment's data:
+            %s
+            Extract needed data and format it to the json format below.
+            Do not guess data unless it is explicitly stated in the message.
+            %s
+            JSON:%s
+            If some data is non-extractable or not present, leave it as null""";
+
     public static String extractPersonalDataPrompt(String rawUserData, Set<String> fieldsToExtract) {
         StringBuilder fieldsJson = new StringBuilder("{\n");
         for (String field : fieldsToExtract) {
@@ -60,5 +69,15 @@ public class OpenAIPrompts {
         fieldsJson.append("}");
 
         return String.format(EXTRACT_CONTACT_DATA, rawContactData, fieldsJson);
+    }
+
+    public static String extractApartmentDataPrompt(String rawApartmentData, Set<String> fieldsToExtract) {
+        StringBuilder fieldsJson = new StringBuilder("{\n");
+        for (String field : fieldsToExtract) {
+            fieldsJson.append(String.format("\t\"%s\": String,\n", field));
+        }
+        fieldsJson.append("}");
+
+        return String.format(EXTRACT_APARTMENT_DATA, rawApartmentData, fieldsJson);
     }
 }

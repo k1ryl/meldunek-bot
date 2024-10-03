@@ -60,6 +60,7 @@ public class OpenAIService {
             case PERSONAL_DATA -> extractPersonalDataPrompt(rawStateData, fieldsToExtract);
             case PESEL -> extractPeselPrompt(rawStateData);
             case CONTACT_DATA -> extractContactDataPrompt(rawStateData, fieldsToExtract);
+            case APARTMENT_DATA -> extractApartmentDataPrompt(rawStateData, fieldsToExtract);
             default -> throw new IllegalArgumentException("Unsupported state: " + state);
         };
     }
