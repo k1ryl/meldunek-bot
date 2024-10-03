@@ -2,14 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
-    <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Vite + React + TS</title>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="wizard.js" defer></script>
 </head>
 <body style="height: 100vh; overflow: hidden">
 <div id="root" x-data="wizardForm()">
@@ -32,25 +27,5 @@
         <button @click="submitForm()">Submit</button>
     </div>
 </div>
-<script>
-    function wizardForm() {
-        return {
-            step: 1,
-            formData: {
-                name: '',
-                age: ''
-            },
-            nextStep() {
-                this.step++;
-            },
-            prevStep() {
-                this.step--;
-            },
-            submitForm() {
-                alert(`Name: ${this.formData.name}, Age: ${this.formData.age}`);
-            }
-        }
-    }
-</script>
 </body>
 </html>
