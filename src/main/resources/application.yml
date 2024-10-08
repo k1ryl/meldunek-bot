@@ -1,3 +1,6 @@
+server:
+  port: ${PORT:8080}
+
 openai:
   api-key: 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
 
